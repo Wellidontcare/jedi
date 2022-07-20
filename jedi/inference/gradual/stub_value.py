@@ -86,9 +86,10 @@ class StubFilter(ParserTreeFilter):
         # Imports in stub files are only public if they have an "as"
         # export.
         definition = name.get_definition()
-        if definition.type in ('import_from', 'import_name'):
-            if name.parent.type not in ('import_as_name', 'dotted_as_name'):
-                return False
+        if definition is not None:
+            if definition.type in ('import_from', 'import_name'):
+                if name.parent.type not in ('import_as_name', 'dotted_as_name'):
+                    return False
         n = name.value
         return not (n.startswith('_') and not (n.startswith('__') and n.endswith('__')))
 
