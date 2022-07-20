@@ -90,10 +90,7 @@ class StubFilter(ParserTreeFilter):
             if name.parent.type not in ('import_as_name', 'dotted_as_name'):
                 return False
         n = name.value
-        # TODO rewrite direct return
-        if n.startswith('_') and not (n.startswith('__') and n.endswith('__')):
-            return False
-        return True
+        return not (n.startswith('_') and not (n.startswith('__') and n.endswith('__')))
 
 
 class VersionInfo(ValueWrapper):
